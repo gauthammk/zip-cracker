@@ -8,18 +8,15 @@ zip_file = zipfile.ZipFile(zip_file)
 num_words = len(list(open(wordlist, "rb")))
 # print the total number of passwords
 print "Total passwords to test: " + str(num_words)
-
+#try the passwords one by one against the zip file
 with open(wordlist, "rb") as wordlist:
-    for i, word in enumerate(wordlist):
-        if i <=27 :
-            print 'trying: ' + word.strip() + ' number ' + str(i)
-        else:
-            break
-        # try:
-        #     zip_file.extractall(pwd=word.strip())
-        # except Exception:
-        #     print "not the password"
-        #     continue
-        # print "[+] Password found: " + word.decode().strip()
-        # exit(0)
+	for word in wordlist:
+	print 'trying password: ' + word
+	try:
+		zip_file.extractall(pwd=word.strip())
+	except Exception:
+		continue
+else:
+	print "[+] Password found: " + word.decode().strip()
+	exit(0)
 print "[!] Password not found, try other wordlist."
